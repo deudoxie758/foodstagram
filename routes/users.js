@@ -14,8 +14,9 @@ router.post("/", bodyParser, async (req, res) => {
   res.send(new_user);
 });
 
-router.get("/", (req, res) => {
-  res.send("users");
+router.get("/", async (req, res) => {
+  const all_users = await prisma.users.findMany();
+  res.json(all_users);
 });
 
 module.exports = router;
