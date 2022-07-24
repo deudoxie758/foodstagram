@@ -1,5 +1,5 @@
 const express = require("express");
-const { PrismaClient, Prisma } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 const _bodyParser = require("body-parser");
 const { PrismaClientKnownRequestError } = require("@prisma/client/runtime");
 
@@ -25,6 +25,9 @@ router.get("/:id", async (req, res) => {
   try {
     const get_user = await prisma.users.findUnique({
       where: { id: parseInt(id) },
+      include: {
+        posts: true,
+      },
     });
     if (!get_user) {
       res.status(404).send("User not found");
