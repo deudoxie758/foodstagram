@@ -41,4 +41,37 @@ router.get("/:postID", async (req, res) => {
   }
 });
 
+router.put("/:id", bodyParser, async (req, res) => {
+  try {
+    const data = req.body;
+    const { id } = req.params;
+    const updated_comment = await prisma.comments.update({
+      where: { id: parseInt(id) },
+      data: {
+        content: data.content,
+      },
+    });
+    res.json(updated_comment);
+  } catch (err) {
+    if (err instanceof PrismaClientKnownRequestError) {
+      console.log(err);
+    }
+    res.status(400).send("Error updating comment");
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await prisma.comments.delete({
+      where: { id: parseInt(id) },
+    });
+    res.status(200).send("successfully deleted comment");
+  } catch (err) {
+    if (err instanceof PrismaClientKnownRequestError) {
+      console.log(err);
+    }
+    res.status(400).send("Error deleting comment");
+  }
+});
 module.exports = router;
