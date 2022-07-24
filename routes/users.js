@@ -1,5 +1,5 @@
 const express = require("express");
-const { PrismaClient, Prisma } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 const _bodyParser = require("body-parser");
 const { PrismaClientKnownRequestError } = require("@prisma/client/runtime");
 
