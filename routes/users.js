@@ -1,6 +1,7 @@
 const express = require("express");
 const { PrismaClient, Prisma } = require("@prisma/client");
 const _bodyParser = require("body-parser");
+const { PrismaClientKnownRequestError } = require("@prisma/client/runtime");
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -19,4 +20,54 @@ router.get("/", async (req, res) => {
   res.json(all_users);
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const get_user = await prisma.users.findUnique({
+      where: { id: parseInt(id) },
+    });
+    if (!get_user) {
+      res.status(404).send("User not found");
+    } else {
+      res.json(get_user);
+    }
+  } catch (err) {
+    if (err instanceof PrismaClientKnownRequestError) {
+      console.log(err);
+    }
+    res.status(400).send("Error fetching user");
+  }
+});
+
+router.put("/:id", bodyParser, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    const updated_user = await prisma.users.update({
+      where: { id: parseInt(id) },
+      data,
+    });
+    res.json(updated_user);
+  } catch (err) {
+    if (err instanceof PrismaClientKnownRequestError) {
+      console.log(err);
+    }
+    res.status(400).send("Error updating user");
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await prisma.users.delete({
+      where: { id: parseInt(id) },
+    });
+    res.status(200).send("User deleted successfully");
+  } catch (err) {
+    if (err instanceof PrismaClientKnownRequestError) {
+      console.log(err);
+    }
+    res.status(400).send("Error deleting user");
+  }
+});
 module.exports = router;
