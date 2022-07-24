@@ -25,6 +25,9 @@ router.get("/:id", async (req, res) => {
   try {
     const get_user = await prisma.users.findUnique({
       where: { id: parseInt(id) },
+      include: {
+        posts: true,
+      },
     });
     if (!get_user) {
       res.status(404).send("User not found");
