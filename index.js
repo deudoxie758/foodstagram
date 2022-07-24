@@ -11,7 +11,7 @@ const port = 3000;
 app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
 app.use("/tags", tagsRouter);
-app.uer("/comments", commentsRouter);
+app.use("/comments", commentsRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
