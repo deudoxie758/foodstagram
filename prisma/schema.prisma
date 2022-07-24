@@ -24,6 +24,7 @@ model users {
   updated_at DateTime    @updatedAt
   posts      posts[]
   followers  followers[]
+  tags       tags[]
 }
 
 model posts {
@@ -42,7 +43,9 @@ model posts {
 model tags {
   id      Int   @id @default(autoincrement())
   post_id Int
+  user_id Int
   post    posts @relation(fields: [post_id], references: [id])
+  user    users @relation(fields: [user_id], references: [id])
 }
 
 model comments {
