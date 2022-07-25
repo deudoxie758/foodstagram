@@ -2,6 +2,7 @@ const express = require("express");
 const { PrismaClient } = require("@prisma/client");
 const _bodyParser = require("body-parser");
 const { PrismaClientKnownRequestError } = require("@prisma/client/runtime");
+const bcrypt = require("bcrypt");
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -11,6 +12,8 @@ const bodyParser = _bodyParser.json();
 router.post("/", bodyParser, async (req, res) => {
   const data = req.body;
   data.dob = new Date(data.dob);
+  data.hashed_password = await bcrypt.hash(data.password, 10);
+  delete data.password;
   const new_user = await prisma.users.create({ data });
   res.send(new_user);
 });

@@ -1,11 +1,10 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
-const _bodyparser = require("body-parser");
+const _bodyParser = require("body-parser");
 const { PrismaClientKnownRequestError } = require("@prisma/client/runtime");
-const e = require("express");
 
 const router = express.Router();
-const bodyParser = _bodyparser.json();
+const bodyParser = _bodyParser.json();
 const prisma = new PrismaClient();
 
 router.put("/:postID", bodyParser, async (req, res) => {
