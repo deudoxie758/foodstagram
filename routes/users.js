@@ -73,4 +73,25 @@ router.delete("/:id", async (req, res) => {
     res.status(400).send("Error deleting user");
   }
 });
+
+router.put("/follow/:id", bodyParser, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    const updated_follows = await prisma.users.update({
+      where: { id: parseInt(id) },
+      data: {
+        followers: {
+          push: data.follower_id,
+        },
+      },
+    });
+    res.json(updated_follows);
+  } catch (err) {
+    if (err instanceof PrismaClientKnownRequestError) {
+      console.log(err);
+    }
+    res.status(400).send("Error updating followers");
+  }
+});
 module.exports = router;

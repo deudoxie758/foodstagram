@@ -12,18 +12,18 @@ datasource db {
 }
 
 model users {
-  id         Int         @id @default(autoincrement())
-  first_name String      @db.VarChar(50)
-  last_name  String      @db.VarChar(50)
-  username   String      @db.VarChar(50)
-  email      String      @db.VarChar(255)
-  phone      String      @db.VarChar(15)
+  id         Int      @id @default(autoincrement())
+  first_name String   @db.VarChar(50)
+  last_name  String   @db.VarChar(50)
+  username   String   @db.VarChar(50)
+  email      String   @db.VarChar(255)
+  phone      String   @db.VarChar(15)
   dob        DateTime
   bio        String?
-  created_at DateTime    @default(now())
-  updated_at DateTime    @updatedAt
+  followers  Int[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
   posts      posts[]
-  followers  followers[]
   tags       tags[]
 }
 
@@ -55,11 +55,4 @@ model comments {
   content    String   @db.VarChar()
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-}
-
-model followers {
-  id          Int   @id @default(autoincrement())
-  user_id     Int
-  follower_id Int
-  users       users @relation(fields: [user_id], references: [id])
 }
