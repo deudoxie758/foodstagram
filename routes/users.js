@@ -78,15 +78,32 @@ router.put("/follow/:id", bodyParser, async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    const updated_follows = await prisma.users.update({
-      where: { id: parseInt(id) },
-      data: {
-        followers: {
-          push: data.follower_id,
+    if (data.follow) {
+      const updated_follows = await prisma.users.update({
+        where: { id: parseInt(id) },
+        data: {
+          followers: {
+            push: data.follower_id,
+          },
         },
-      },
-    });
-    res.json(updated_follows);
+      });
+      res.json(updated_follows);
+    } else if (!data.follow) {
+      let get_user = await prisma.users.findUnique({
+        where: { id: parseInt(id) },
+      });
+      let followers_list = get_user.followers.filter(
+        (id) => id !== data.follower_id
+      );
+      console.log(followers_list);
+      const updated_follows = await prisma.users.update({
+        where: { id: parseInt(id) },
+        data: {
+          followers: followers_list,
+        },
+      });
+      res.json(updated_follows);
+    }
   } catch (err) {
     if (err instanceof PrismaClientKnownRequestError) {
       console.log(err);
@@ -94,4 +111,5 @@ router.put("/follow/:id", bodyParser, async (req, res) => {
     res.status(400).send("Error updating followers");
   }
 });
+
 module.exports = router;
