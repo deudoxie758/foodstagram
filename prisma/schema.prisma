@@ -12,19 +12,20 @@ datasource db {
 }
 
 model users {
-  id         Int      @id @default(autoincrement())
-  first_name String   @db.VarChar(50)
-  last_name  String   @db.VarChar(50)
-  username   String   @db.VarChar(50)
-  email      String   @db.VarChar(255)
-  phone      String   @db.VarChar(15)
-  dob        DateTime
-  bio        String?
-  followers  Int[]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  posts      posts[]
-  tags       tags[]
+  id              Int      @id @default(autoincrement())
+  first_name      String   @db.VarChar(50)
+  last_name       String   @db.VarChar(50)
+  username        String   @unique @db.VarChar(50)
+  email           String   @unique @db.VarChar(255)
+  phone           String   @unique @db.VarChar(15)
+  dob             DateTime
+  bio             String?
+  followers       Int[]
+  hashed_password String?  @db.VarChar(255)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  posts           posts[]
+  tags            tags[]
 }
 
 model posts {
