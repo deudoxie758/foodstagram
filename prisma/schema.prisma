@@ -33,11 +33,11 @@ model posts {
   user       users      @relation(fields: [user_id], references: [id])
   url        String     @db.VarChar()
   caption    String?
+  likes      Int?       @default(0)
   created_at DateTime   @default(now())
   updated_at DateTime   @updatedAt
   tags       tags[]
   comments   comments[]
-  likes      likes[]
 }
 
 model tags {
@@ -55,13 +55,6 @@ model comments {
   content    String   @db.VarChar()
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-}
-
-model likes {
-  id      Int   @id @default(autoincrement())
-  post_id Int
-  post    posts @relation(fields: [post_id], references: [id])
-  count   Int   @default(0)
 }
 
 model followers {
