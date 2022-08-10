@@ -1,0 +1,66 @@
+.signupParent{
+    background-color: green;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    
+}
+.signupPic{
+    background-color: wheat;
+    width: 50vw;
+    height: 100vh;
+}
+.signupForm{
+    background-color: white;
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.formParent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6vh;
+    height: 70vh;
+    width: 25vw;
+    border: black solid 1px;
+    
+}
+.mainForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.mainForm input{
+    width: 18vw;
+    height: 3vh;
+    margin: 0.5vw;
+    text-align: center;
+    border: black solid 1px;
+    border-radius: 5px;
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#signupBtn{
+    width: 5vw;
+    margin: auto;
+    margin-top: 1vh;
+    background-color: #1ba3cdc9;
+    border: #1ba3cdc9 solid 1px;
+    
+}
+
+#loginBtn{
+    width: 5vw;
+    height: 3vh;
+    margin: auto;
+    margin-top: 1vh;
+    background-color: #1ba3cdc9;
+    border: #1ba3cdc9 solid 1px;
+    border-radius: 5px;
+}
