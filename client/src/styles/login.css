@@ -7,9 +7,24 @@
     
 }
 .signupPic{
-    background-color: wheat;
+    background-color: white;
     width: 50vw;
     height: 100vh;
+    position: relative;
+}
+#iphone1{
+    height: 105vh;
+    width: 60vw;
+    margin-left: 5vw;
+    position: absolute;
+    bottom: 3vh;
+}
+#iphone2{
+    height: 105vh;
+    width: 60vw;
+    margin-top: 7vh;
+    margin-left: 15vw;
+    position: absolute;
 }
 .signupForm{
     background-color: white;

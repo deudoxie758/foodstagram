@@ -18,7 +18,9 @@ function LoginForm() {
       </form>
       <div className="login">
         <p>Already have an account?</p>
-        <input id="loginBtn" type="button" value="Login" />
+        <a href="/">
+          <input id="loginBtn" type="button" value="Login" />
+        </a>
       </div>
     </div>
   );
