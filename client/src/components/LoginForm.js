@@ -1,26 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+
 function LoginForm() {
+  let [username, setUsername] = useState("");
+  let [password, setPassword] = useState("");
+
+  const getUsername = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const getPassword = (e) => {
+    setPassword(e.target.value);
+    console.log(password);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    console.log("submitted");
+  };
+
   return (
-    <div className="formParent">
-      <h1>Foodstagram</h1>
-      <form className="mainForm">
-        <input type="text" name="fullname" placeholder="Full Name" />
-        <input type="text" name="username" placeholder="Username" />
-        <input type="email" name="email" placeholder="Email" />
-        <input type="number" name="phonenumber" placeholder="Phone Number" />
-        <input type="password" name="password" placeholder="Password" />
+    <div className="LoginParent">
+      <h1> Foodstagram</h1>
+      <form className="LoginForm" onSubmit={submit}>
+        <input
+          type="text"
+          name="usename"
+          placeholder="Username"
+          onChange={getUsername}
+        />
         <input
           type="password"
-          name="confirmpwd"
-          placeholder="Confirm Password"
+          name="password"
+          placeholder="Password"
+          onChange={getPassword}
         />
-        <input id="signupBtn" type="submit" value="Sign Up" />
+        <input id="loginBtn" type="submit" value="Log In" />
+        <a href="/">Forgot password?</a>
       </form>
-      <div className="login">
-        <p>Already have an account?</p>
-        <a href="/">
-          <input id="loginBtn" type="button" value="Login" />
-        </a>
+      <div id="loginRedirect">
+        <p>
+          Don't have an account? <a href="/signup">Sign Up</a>
+        </p>
       </div>
     </div>
   );
